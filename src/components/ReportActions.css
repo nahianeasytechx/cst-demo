@@ -1,0 +1,114 @@
+.report-actions {
+  margin-top: var(--space-2xl);
+}
+
+/* Post-Report Options */
+.post-report {
+  margin-bottom: var(--space-xl);
+}
+
+.post-report-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.post-report-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.post-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-align: left;
+  font-family: var(--font-sans);
+}
+
+.post-option:hover {
+  border-color: var(--accent-blue);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.post-option-icon-svg {
+  color: var(--accent-blue);
+  flex-shrink: 0;
+}
+
+.post-option-label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.post-option-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Action Bar */
+.action-bar {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+/* Disclaimers */
+.disclaimers {
+  padding: var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.disclaimer-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--flag-high);
+  margin-bottom: var(--space-md);
+}
+
+.disclaimer-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.disclaimer-list li {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding-left: var(--space-md);
+  position: relative;
+  line-height: 1.5;
+}
+
+.disclaimer-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .post-report-options {
+    grid-template-columns: 1fr;
+  }
+
+  .action-bar {
+    flex-direction: column;
+  }
+}

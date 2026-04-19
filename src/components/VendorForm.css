@@ -1,0 +1,33 @@
+.vendor-form {
+  margin-top: var(--space-lg);
+}
+
+.vendor-form-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.vendor-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.vendor-form-grid .span-2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 640px) {
+  .vendor-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vendor-form-grid .span-2 {
+    grid-column: span 1;
+  }
+}

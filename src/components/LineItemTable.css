@@ -1,0 +1,145 @@
+.line-item-section {
+  margin-top: var(--space-xl);
+}
+
+.line-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.line-item-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.line-item-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.item-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.item-total {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.item-total strong {
+  color: var(--accent-blue-light);
+}
+
+.line-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.line-item-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  transition: border-color var(--transition-fast);
+}
+
+.line-item-card:hover {
+  border-color: rgba(99, 115, 175, 0.25);
+}
+
+.item-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.item-number {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-blue-light);
+  background: rgba(59, 130, 246, 0.1);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+}
+
+.item-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+.item-name-field {
+  grid-column: span 2;
+}
+
+.item-specs-field {
+  grid-column: span 2;
+}
+
+.price-input {
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.line-total-display {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--accent-blue-light);
+}
+
+.add-item-btn {
+  width: 100%;
+  padding: 14px;
+  border-style: dashed;
+  font-size: 0.9rem;
+}
+
+.add-item-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue-light);
+}
+
+@media (max-width: 768px) {
+  .item-card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .item-name-field,
+  .item-specs-field {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .item-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .item-name-field,
+  .item-specs-field {
+    grid-column: span 1;
+  }
+}

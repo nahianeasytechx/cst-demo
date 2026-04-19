@@ -1,0 +1,225 @@
+.recommendations {
+  margin-top: var(--space-2xl);
+}
+
+.rec-section-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xl);
+}
+
+.rec-block {
+  margin-bottom: var(--space-xl);
+}
+
+.rec-block-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+/* Negotiate Items */
+.negotiate-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.negotiate-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.negotiate-rank {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--flag-overpriced-bg);
+  color: var(--flag-overpriced);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+.negotiate-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.negotiate-info strong {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.negotiate-detail {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.negotiate-saving {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--flag-good);
+  white-space: nowrap;
+}
+
+/* Alternative Vendors */
+.alt-vendors {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.alt-vendor-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+}
+
+.alt-vendor-rank {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--accent-blue-light);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.alt-vendor-reason {
+  flex: 1;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.alt-vendor-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Talking Points */
+.talking-points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.talking-point {
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-blue);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.tp-quote {
+  color: var(--accent-blue-light);
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Counter Offer */
+.counter-offer {
+  background: var(--gradient-card);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.counter-offer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-success);
+}
+
+.counter-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+.counter-values {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.counter-proposed,
+.counter-original,
+.counter-saving {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.counter-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.counter-amount {
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  color: var(--flag-good);
+}
+
+.counter-amount-original {
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.counter-saving-amount {
+  font-size: 1.2rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--accent-blue-light);
+}
+
+.counter-vs {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}

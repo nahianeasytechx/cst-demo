@@ -1,0 +1,117 @@
+.file-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.file-upload-zone {
+  position: relative;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3xl) var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  background: var(--bg-input);
+  min-height: 180px;
+}
+
+.file-upload-zone:hover {
+  border-color: rgba(99, 179, 237, 0.3);
+  background: rgba(59, 130, 246, 0.03);
+}
+
+.file-upload-zone.dragging {
+  border-color: var(--accent-blue);
+  background: rgba(59, 130, 246, 0.08);
+  box-shadow: 0 0 30px var(--accent-blue-glow);
+}
+
+.file-upload-zone.has-file {
+  border-style: solid;
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.03);
+  cursor: default;
+  padding: var(--space-xl);
+  min-height: auto;
+}
+
+.file-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.upload-icon {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.file-upload-zone:hover .upload-icon {
+  color: var(--accent-blue-light);
+  opacity: 0.8;
+}
+
+.upload-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.upload-primary {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.upload-secondary {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.file-uploaded {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.file-icon-svg {
+  color: var(--accent-blue);
+  flex-shrink: 0;
+}
+
+.file-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.file-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.file-size {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.upload-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: var(--radius-md);
+  font-size: 0.83rem;
+  color: var(--flag-high);
+  line-height: 1.5;
+}

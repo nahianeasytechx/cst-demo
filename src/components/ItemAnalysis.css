@@ -1,0 +1,134 @@
+.item-analysis {
+  background: var(--gradient-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--space-lg);
+}
+
+.ia-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  border-bottom: 1px solid var(--border-subtle);
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.ia-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-blue-light);
+}
+
+.ia-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 4px;
+}
+
+.ia-specs,
+.ia-qty {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.ia-specs strong,
+.ia-qty strong {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Price Comparison */
+.ia-comparison {
+  padding: var(--space-lg);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ia-comparison .data-table {
+  max-width: 500px;
+}
+
+.highlight-row td {
+  background: rgba(59, 130, 246, 0.04);
+}
+
+/* Sources */
+.ia-sources {
+  padding: var(--space-lg);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.ia-sources-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.stock-indicator {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+}
+
+.stock-indicator.in-stock {
+  background: var(--flag-good-bg);
+  color: var(--flag-good);
+}
+
+.stock-indicator.other-stock {
+  background: var(--flag-high-bg);
+  color: var(--flag-high);
+}
+
+.source-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Best Contact */
+.ia-best-contact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(59, 130, 246, 0.04);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.best-contact-icon {
+  font-size: 1.1rem;
+}
+
+.best-contact-label {
+  color: var(--text-muted);
+}
+
+/* Notes */
+.ia-notes {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(245, 158, 11, 0.05);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.ia-notes-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.ia-notes strong {
+  color: var(--flag-high);
+}

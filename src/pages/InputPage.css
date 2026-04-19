@@ -1,0 +1,83 @@
+.input-page {
+  padding-bottom: 120px;
+}
+
+.input-quick-actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.input-method-section {
+  margin-bottom: var(--space-lg);
+}
+
+.tab-content {
+  margin-top: var(--space-xl);
+}
+
+/* Paste Section */
+.paste-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.paste-area {
+  min-height: 200px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.paste-notice,
+.manual-notice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: rgba(59, 130, 246, 0.06);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  border-radius: var(--radius-md);
+  font-size: 0.83rem;
+  color: var(--accent-blue-light);
+}
+
+/* Proceed Bar */
+.proceed-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 14, 26, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  padding: var(--space-md) var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+}
+
+.proceed-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.proceed-count {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.proceed-vendor {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.proceed-actions {
+  display: flex;
+  gap: var(--space-md);
+}
