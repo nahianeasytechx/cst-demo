@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useCST } from '../context/CSTContext';
 import FileUpload from '../components/FileUpload';
 import VendorForm from '../components/VendorForm';
 import LineItemTable from '../components/LineItemTable';
-import { demoVendorInfo, demoLineItems } from '../utils/demoData';
-import { FiDownload, FiClipboard, FiEdit3, FiPlay, FiTrash2, FiArrowRight, FiFile, FiInfo } from 'react-icons/fi';
+import { FiDownload, FiClipboard, FiEdit3, FiTrash2, FiArrowRight, FiFile, FiInfo } from 'react-icons/fi';
 import { RiFileAddLine } from 'react-icons/ri';
 import './InputPage.css';
 
@@ -15,18 +14,8 @@ export default function InputPage() {
   const [activeTab, setActiveTab] = useState('upload');
   const [pastedText, setPastedText] = useState('');
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
 
-  useEffect(() => {
-    if (searchParams.get('demo') === 'true') {
-      loadDemo();
-    }
-  }, [searchParams]);
 
-  const loadDemo = () => {
-    dispatch({ type: 'SET_VENDOR_INFO', payload: demoVendorInfo });
-    dispatch({ type: 'SET_LINE_ITEMS', payload: demoLineItems });
-  };
 
   const handleVendorChange = (updates) => {
     dispatch({ type: 'SET_VENDOR_INFO', payload: updates });
@@ -44,12 +33,6 @@ export default function InputPage() {
     navigate('/analyze');
   };
 
-  const handleReset = () => {
-    if (confirm('Are you sure you want to clear all data?')) {
-      dispatch({ type: 'RESET' });
-      setPastedText('');
-    }
-  };
 
   const canProceed = lineItems.length > 0 && vendorInfo.vendorName;
 
@@ -68,20 +51,7 @@ export default function InputPage() {
         <p>Upload or enter vendor quotation details to begin your CST analysis.</p>
       </motion.div>
 
-      {/* Quick Actions */}
-      <motion.div
-        className="input-quick-actions"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        <button className="btn btn-secondary" onClick={loadDemo}>
-          <FiPlay size={15} /> Load Demo Data
-        </button>
-        <button className="btn btn-ghost" onClick={handleReset}>
-          <FiTrash2 size={15} /> Clear All
-        </button>
-      </motion.div>
+
 
       {/* Input Method Tabs */}
       <motion.div
@@ -123,6 +93,33 @@ export default function InputPage() {
                 <FileUpload
                   onTextExtracted={(text, fileName) => {
                     console.log('File uploaded:', fileName);
+                  }}
+                  onOcrData={(ocrResult) => {
+                    // Apply extracted vendor info
+                    if (ocrResult.vendorInfo) {
+                      const vi = ocrResult.vendorInfo;
+                      const updates = {};
+                      if (vi.vendorName) updates.vendorName = vi.vendorName;
+                      if (vi.vendorAddress) updates.vendorAddress = vi.vendorAddress;
+                      if (vi.vendorContact) updates.vendorContact = vi.vendorContact;
+                      if (vi.quotationNumber) updates.quotationNumber = vi.quotationNumber;
+                      if (vi.quotationDate) updates.quotationDate = vi.quotationDate;
+                      if (vi.validityPeriod) updates.validityPeriod = vi.validityPeriod;
+                      if (vi.paymentTerms) updates.paymentTerms = vi.paymentTerms;
+                      if (vi.deliveryTerms) updates.deliveryTerms = vi.deliveryTerms;
+                      if (Object.keys(updates).length > 0) {
+                        dispatch({ type: 'SET_VENDOR_INFO', payload: updates });
+                      }
+                    }
+                    // Apply extracted line items
+                    if (ocrResult.lineItems && ocrResult.lineItems.length > 0) {
+                      const existingIds = new Set(lineItems.map(i => i.id));
+                      ocrResult.lineItems.forEach(item => {
+                        if (!existingIds.has(item.id)) {
+                          dispatch({ type: 'ADD_LINE_ITEM', payload: item });
+                        }
+                      });
+                    }
                   }}
                 />
               </motion.div>

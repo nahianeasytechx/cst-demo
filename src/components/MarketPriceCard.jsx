@@ -1,15 +1,23 @@
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCST } from '../context/CSTContext';
 import { analyzeItem } from '../utils/priceAnalysis';
 import { formatBDT, formatVariance } from '../utils/formatters';
-import { FiDollarSign, FiPlus, FiX } from 'react-icons/fi';
+import { searchPrices } from '../services/priceProvider';
+import { FiDollarSign, FiPlus, FiX, FiSearch, FiLoader, FiAlertCircle } from 'react-icons/fi';
 import { HiLightBulb } from 'react-icons/hi';
 import StatusBadge from './StatusBadge';
+import SearchResults from './SearchResults';
 import './MarketPriceCard.css';
 
 export default function MarketPriceCard({ item, index }) {
-  const { dispatch } = useCST();
+  const { vendorInfo, dispatch } = useCST();
   const analyzed = analyzeItem(item);
+
+  const [searchState, setSearchState] = useState('idle'); // idle | loading | done | error
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchError, setSearchError] = useState('');
+  const [showResults, setShowResults] = useState(false);
 
   const addSource = () => {
     dispatch({
@@ -33,6 +41,59 @@ export default function MarketPriceCard({ item, index }) {
     dispatch({
       type: 'REMOVE_MARKET_SOURCE',
       payload: { itemId: item.id, sourceIndex },
+    });
+  };
+
+  const handleSearch = async () => {
+    const vendorName = vendorInfo?.vendorName || '';
+    const query = [vendorName, item.itemName, item.brand, item.specs]
+      .filter(Boolean)
+      .join(' ')
+      .trim();
+
+    if (!query) {
+      setSearchState('error');
+      setSearchError('Please enter an item name first.');
+      return;
+    }
+
+    setSearchState('loading');
+    setSearchError('');
+    setSearchResults([]);
+
+    try {
+      const { results } = await searchPrices(query + ' price');
+      setSearchResults(results);
+      setSearchState('done');
+      setShowResults(true);
+    } catch (error) {
+      setSearchState('error');
+      if (error.message === 'BRIGHTDATA_KEY_MISSING') {
+        setSearchError('BRIGHTDATA_KEY_MISSING');
+      } else if (error.message === 'BRIGHTDATA_KEY_INVALID') {
+        setSearchError('Invalid API key. Check your Bright Data API key in environment variables.');
+      } else if (error.message === 'BRIGHTDATA_RATE_LIMIT') {
+        setSearchError('Rate limit reached. Try again later.');
+      } else {
+        setSearchError(error.message || 'Search failed. Please try again.');
+      }
+    }
+  };
+
+  const handleAddSearchResults = (selectedResults) => {
+    selectedResults.forEach(result => {
+      dispatch({
+        type: 'ADD_MARKET_SOURCE',
+        payload: {
+          itemId: item.id,
+          source: {
+            seller: result.seller,
+            price: result.price,
+            url: result.url,
+            stock: result.stock || 'In Stock',
+          },
+        },
+      });
     });
   };
 
@@ -124,9 +185,50 @@ export default function MarketPriceCard({ item, index }) {
           ))}
         </AnimatePresence>
 
-        <button className="btn btn-ghost add-source-btn" onClick={addSource}>
-          <FiPlus size={14} /> Add Market Source
-        </button>
+        <div className="source-actions-row">
+          <button className="btn btn-ghost add-source-btn" onClick={addSource}>
+            <FiPlus size={14} /> Add Manually
+          </button>
+          <button
+            className={`btn ${searchState === 'loading' ? 'btn-ghost' : 'btn-primary'} search-prices-btn btn-sm`}
+            onClick={handleSearch}
+            disabled={searchState === 'loading'}
+          >
+            {searchState === 'loading' ? (
+              <><FiLoader size={14} className="search-spinner" /> Searching...</>
+            ) : (
+              <><FiSearch size={14} /> Search Market Prices</>
+            )}
+          </button>
+        </div>
+
+        {/* Search Error */}
+        {searchState === 'error' && searchError && (
+          <motion.div
+            className="search-error"
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <FiAlertCircle size={14} />
+            {searchError === 'BRIGHTDATA_KEY_MISSING' ? (
+              <span>API key not configured on server. Add <code>BRIGHTDATA_KEY</code> to your Vercel environment variables.</span>
+            ) : (
+              <span>{searchError}</span>
+            )}
+          </motion.div>
+        )}
+
+        {/* Search Results */}
+        <AnimatePresence>
+          {showResults && searchState === 'done' && (
+            <SearchResults
+              results={searchResults}
+              vendorPrice={item.unitPrice}
+              onAddSelected={handleAddSearchResults}
+              onClose={() => setShowResults(false)}
+            />
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Analysis Results */}

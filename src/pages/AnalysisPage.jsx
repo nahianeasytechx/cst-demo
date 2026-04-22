@@ -1,17 +1,20 @@
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useCST } from '../context/CSTContext';
 import MarketPriceCard from '../components/MarketPriceCard';
 import { analyzeItem, generateExecutiveSummary } from '../utils/priceAnalysis';
 import { formatBDT, formatVariance } from '../utils/formatters';
-import { FiSearch, FiArrowLeft, FiBarChart2, FiPackage, FiAlertOctagon, FiAlertTriangle, FiCheckCircle } from 'react-icons/fi';
+import { searchPrices, isPriceSearchConfigured } from '../services/priceProvider';
+import { FiSearch, FiArrowLeft, FiBarChart2, FiPackage, FiAlertOctagon, FiAlertTriangle, FiCheckCircle, FiLoader, FiZap } from 'react-icons/fi';
 import { HiShieldCheck } from 'react-icons/hi2';
 import './AnalysisPage.css';
 
 export default function AnalysisPage() {
   const { vendorInfo, lineItems, generateReport, dispatch } = useCST();
   const navigate = useNavigate();
+  const [bulkSearching, setBulkSearching] = useState(false);
+  const [bulkProgress, setBulkProgress] = useState({ current: 0, total: 0 });
 
   const liveSummary = useMemo(() => {
     const analyzed = lineItems.map(item => analyzeItem(item));
@@ -25,6 +28,59 @@ export default function AnalysisPage() {
 
   const handleBack = () => {
     navigate('/new');
+  };
+
+  const handleBulkSearch = async () => {
+    if (!isPriceSearchConfigured()) {
+      alert('BRIGHTDATA_KEY not configured on the server. Add it to your Vercel environment variables.');
+      return;
+    }
+
+    setBulkSearching(true);
+    const total = lineItems.length;
+    setBulkProgress({ current: 0, total });
+
+    for (let i = 0; i < lineItems.length; i++) {
+      const item = lineItems[i];
+      const query = [item.itemName, item.brand, item.specs].filter(Boolean).join(' ').trim();
+
+      if (!query) {
+        setBulkProgress({ current: i + 1, total });
+        continue;
+      }
+
+      try {
+        const { results } = await searchPrices(query + ' price');
+
+        // Add top 3 results as market sources
+        const topResults = results.slice(0, 3);
+        topResults.forEach(result => {
+          dispatch({
+            type: 'ADD_MARKET_SOURCE',
+            payload: {
+              itemId: item.id,
+              source: {
+                seller: result.seller,
+                price: result.price,
+                url: result.url,
+                stock: result.stock || 'In Stock',
+              },
+            },
+          });
+        });
+      } catch (error) {
+        console.warn(`Search failed for "${query}":`, error.message);
+      }
+
+      setBulkProgress({ current: i + 1, total });
+
+      // Rate limit delay: ~1.5s between requests
+      if (i < lineItems.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 1500));
+      }
+    }
+
+    setBulkSearching(false);
   };
 
   if (lineItems.length === 0) {
@@ -107,6 +163,36 @@ export default function AnalysisPage() {
           <span className="live-label"><HiShieldCheck size={14} /></span>
           <span className="live-value text-success">{liveSummary.counts.goodDeal}</span>
         </div>
+      </motion.div>
+
+      {/* Bulk Search Bar */}
+      <motion.div
+        className="bulk-search-bar"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+      >
+        <div className="bulk-search-info">
+          <FiZap size={16} />
+          <span>
+            Auto-search market prices for all {lineItems.length} items at once
+            <span className="bulk-search-hint"> (uses {lineItems.length} API searches)</span>
+          </span>
+        </div>
+        <button
+          className={`btn ${bulkSearching ? 'btn-ghost' : 'btn-primary'} btn-sm`}
+          onClick={handleBulkSearch}
+          disabled={bulkSearching}
+        >
+          {bulkSearching ? (
+            <>
+              <FiLoader size={14} className="bulk-spinner" />
+              Searching {bulkProgress.current}/{bulkProgress.total}...
+            </>
+          ) : (
+            <><FiSearch size={14} /> Search All Prices</>
+          )}
+        </button>
       </motion.div>
 
       {/* Item Cards */}

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useCST } from '../context/CSTContext';
 import { formatBDT, formatDate } from '../utils/formatters';
-import { FiBarChart2, FiDollarSign, FiPackage, FiTrendingUp, FiDownload, FiSearch, FiTarget, FiPlus, FiTrash2, FiArrowRight, FiAlertOctagon, FiCheckCircle, FiPlay } from 'react-icons/fi';
+import { FiBarChart2, FiDollarSign, FiPackage, FiTrendingUp, FiDownload, FiSearch, FiTarget, FiPlus, FiTrash2, FiArrowRight, FiAlertOctagon, FiCheckCircle } from 'react-icons/fi';
 import { HiDocumentReport } from 'react-icons/hi';
 import { HiClipboardDocumentList } from 'react-icons/hi2';
 import './Dashboard.css';
@@ -81,9 +81,6 @@ export default function Dashboard() {
           >
             <Link to="/new" className="btn btn-primary btn-lg hero-cta">
               <FiPlus size={18} /> Start New Analysis
-            </Link>
-            <Link to="/new?demo=true" className="btn btn-secondary btn-lg">
-              <FiPlay size={16} /> Try Demo
             </Link>
           </motion.div>
         </div>
