@@ -143,6 +143,10 @@
     position: static;
   }
 
+  .live-stat {
+    min-width: 60px;
+  }
+
   .live-divider {
     display: none;
   }
@@ -150,5 +154,10 @@
   .analysis-action-bar {
     flex-direction: column;
     gap: var(--space-md);
+  }
+
+  .bulk-search-bar {
+    flex-direction: column;
+    text-align: center;
   }
 }

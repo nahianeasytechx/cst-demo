@@ -1,5 +1,5 @@
 .input-page {
-  padding-bottom: 120px;
+  padding-bottom: 140px;
 }
 
 .input-quick-actions {
@@ -49,11 +49,14 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(10, 14, 26, 0.92);
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(10, 14, 26, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid var(--border);
   padding: var(--space-md) var(--space-xl);
+  padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -69,7 +72,7 @@
 .proceed-count {
   font-size: 0.9rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #fff;
 }
 
 .proceed-vendor {
@@ -80,4 +83,32 @@
 .proceed-actions {
   display: flex;
   gap: var(--space-md);
+}
+
+@media (max-width: 768px) {
+  .input-page {
+    padding-bottom: 180px;
+  }
+
+  .proceed-bar {
+    padding: var(--space-md);
+    padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
+    flex-direction: column;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+  
+  .proceed-info {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .proceed-actions {
+    width: 100%;
+  }
+  
+  .proceed-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

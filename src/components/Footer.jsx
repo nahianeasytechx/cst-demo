@@ -1,7 +1,13 @@
+import { useLocation } from 'react-router-dom';
 import { HiDocumentReport } from 'react-icons/hi';
 import './Footer.css';
 
 export default function Footer() {
+  const { pathname } = useLocation();
+
+  // Hide footer on input page — the proceed bar replaces it
+  if (pathname === '/new') return null;
+
   return (
     <footer className="app-footer">
       <div className="footer-inner">

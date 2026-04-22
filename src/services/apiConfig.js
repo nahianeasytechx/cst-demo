@@ -9,7 +9,7 @@ const defaultConfig = {
     activeProvider: 'tesseract', // 'tesseract' | 'google-vision' | 'ocr-space'
   },
   priceSearch: {
-    activeProvider: 'brightdata', // 'brightdata' | 'serpapi' | 'google-cse' | 'custom'
+    activeProvider: 'gemini', // 'gemini' | 'brightdata' | 'serpapi' | 'google-cse' | 'custom'
   },
 };
 
@@ -24,10 +24,10 @@ export function getApiConfig() {
  * Provider endpoint configurations
  */
 export const PROVIDERS = {
-  brightdata: {
-    name: 'Bright Data',
+  gemini: {
+    name: 'Gemini AI',
     endpoint: '/api/search-prices',
-    docsUrl: 'https://brightdata.com/products/serp-api',
+    docsUrl: 'https://ai.google.dev/docs',
   },
   tesseract: {
     name: 'Tesseract.js',

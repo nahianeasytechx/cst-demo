@@ -36,13 +36,16 @@ export async function searchPrices(query, options = {}) {
     const errorData = await response.json().catch(() => ({}));
 
     if (response.status === 401 || response.status === 403) {
-      throw new Error('BRIGHTDATA_KEY_INVALID');
+      throw new Error('GEMINI_API_KEY_INVALID');
     }
     if (response.status === 429) {
-      throw new Error('BRIGHTDATA_RATE_LIMIT');
+      throw new Error('GEMINI_RATE_LIMIT');
     }
-    if (response.status === 500 && errorData.error?.includes('BRIGHTDATA_KEY')) {
-      throw new Error('BRIGHTDATA_KEY_MISSING');
+    if (response.status === 500 && errorData.error?.includes('GEMINI_API_KEY')) {
+      throw new Error('GEMINI_API_KEY_MISSING');
+    }
+    if (response.status === 500 && errorData.error?.includes('GEMINI_503_OVERLOAD')) {
+      throw new Error('GEMINI_503_OVERLOAD');
     }
 
     throw new Error(errorData.error || `API error: ${response.status}`);

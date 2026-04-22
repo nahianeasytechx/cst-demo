@@ -170,3 +170,23 @@
   font-size: 0.85rem;
   color: var(--text-secondary);
 }
+
+@media (max-width: 640px) {
+  .search-result-item {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .search-result-title {
+    white-space: normal;
+  }
+
+  .search-result-thumb {
+    width: 32px;
+    height: 32px;
+  }
+
+  .search-results-actions {
+    flex-wrap: wrap;
+  }
+}

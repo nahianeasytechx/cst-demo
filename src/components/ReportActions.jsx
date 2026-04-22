@@ -10,7 +10,7 @@ export default function ReportActions({ onExportPDF, onNewAnalysis }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
     >
-      {/* Post-Report Options */}
+      {/* Post-Report Options
       <div className="post-report">
         <h3 className="post-report-title">What would you like next?</h3>
         <div className="post-report-options">
@@ -30,7 +30,7 @@ export default function ReportActions({ onExportPDF, onNewAnalysis }) {
             <span className="post-option-desc">Talking points for negotiating by phone</span>
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Action Buttons */}
       <div className="action-bar">

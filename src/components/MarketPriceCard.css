@@ -251,4 +251,31 @@
   .source-url {
     grid-column: span 1;
   }
+
+  .market-card-header {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .market-card-price-tag {
+    align-items: flex-start;
+  }
+
+  .source-actions-row {
+    flex-direction: column;
+  }
+
+  .total-saving-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-xs);
+  }
+
+  .market-sources {
+    padding: var(--space-md);
+  }
+
+  .analysis-results {
+    padding: var(--space-md);
+  }
 }

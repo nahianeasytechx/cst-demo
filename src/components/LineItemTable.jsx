@@ -166,7 +166,7 @@ export default function LineItemTable() {
       </div>
 
       <motion.button
-        className="btn btn-secondary add-item-btn"
+        className="btn btn-secondary add-item-btn mb-3"
         onClick={addItem}
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}

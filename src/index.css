@@ -673,8 +673,13 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  .page-container {
+  .page-container,
+  .page-container-wide {
     padding: var(--space-lg) var(--space-md);
+  }
+
+  .card {
+    padding: var(--space-md);
   }
 
   .grid-2,
@@ -689,6 +694,15 @@ a:hover {
 
   .section-header h2 {
     font-size: 1.25rem;
+  }
+
+  .btn-lg {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  .tabs {
+    flex-direction: column;
   }
 }
 

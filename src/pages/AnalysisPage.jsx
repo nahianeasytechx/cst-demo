@@ -32,7 +32,7 @@ export default function AnalysisPage() {
 
   const handleBulkSearch = async () => {
     if (!isPriceSearchConfigured()) {
-      alert('BRIGHTDATA_KEY not configured on the server. Add it to your Vercel environment variables.');
+      alert('GEMINI_API_KEY not configured on the server. Add it to your Vercel environment variables.');
       return;
     }
 

@@ -68,12 +68,14 @@ export default function MarketPriceCard({ item, index }) {
       setShowResults(true);
     } catch (error) {
       setSearchState('error');
-      if (error.message === 'BRIGHTDATA_KEY_MISSING') {
-        setSearchError('BRIGHTDATA_KEY_MISSING');
-      } else if (error.message === 'BRIGHTDATA_KEY_INVALID') {
-        setSearchError('Invalid API key. Check your Bright Data API key in environment variables.');
-      } else if (error.message === 'BRIGHTDATA_RATE_LIMIT') {
+      if (error.message === 'GEMINI_API_KEY_MISSING') {
+        setSearchError('GEMINI_API_KEY_MISSING');
+      } else if (error.message === 'GEMINI_API_KEY_INVALID') {
+        setSearchError('Invalid Gemini API Key. Please check your configuration.');
+      } else if (error.message === 'GEMINI_RATE_LIMIT') {
         setSearchError('Rate limit reached. Try again later.');
+      } else if (error.message === 'GEMINI_503_OVERLOAD') {
+        setSearchError('Gemini API is currently overloaded. Please try again in a few moments.');
       } else {
         setSearchError(error.message || 'Search failed. Please try again.');
       }
@@ -210,8 +212,8 @@ export default function MarketPriceCard({ item, index }) {
             animate={{ opacity: 1, y: 0 }}
           >
             <FiAlertCircle size={14} />
-            {searchError === 'BRIGHTDATA_KEY_MISSING' ? (
-              <span>API key not configured on server. Add <code>BRIGHTDATA_KEY</code> to your Vercel environment variables.</span>
+            {searchError === 'GEMINI_API_KEY_MISSING' ? (
+              <span>API key not configured on server. Add <code>GEMINI_API_KEY</code> to your Vercel environment variables.</span>
             ) : (
               <span>{searchError}</span>
             )}
