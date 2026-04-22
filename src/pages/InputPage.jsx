@@ -5,14 +5,13 @@ import { useCST } from '../context/CSTContext';
 import FileUpload from '../components/FileUpload';
 import VendorForm from '../components/VendorForm';
 import LineItemTable from '../components/LineItemTable';
-import { FiDownload, FiClipboard, FiEdit3, FiTrash2, FiArrowRight, FiFile, FiInfo } from 'react-icons/fi';
+import { FiEdit3, FiArrowRight, FiFile } from 'react-icons/fi';
 import { RiFileAddLine } from 'react-icons/ri';
 import './InputPage.css';
 
 export default function InputPage() {
   const { vendorInfo, lineItems, dispatch } = useCST();
   const [activeTab, setActiveTab] = useState('upload');
-  const [pastedText, setPastedText] = useState('');
   const navigate = useNavigate();
 
 
@@ -69,12 +68,6 @@ export default function InputPage() {
               <FiFile size={15} /> Upload PDF / Image
             </button>
             <button
-              className={`tab ${activeTab === 'paste' ? 'active' : ''}`}
-              onClick={() => setActiveTab('paste')}
-            >
-              <FiClipboard size={15} /> Paste Text
-            </button>
-            <button
               className={`tab ${activeTab === 'manual' ? 'active' : ''}`}
               onClick={() => setActiveTab('manual')}
             >
@@ -122,31 +115,6 @@ export default function InputPage() {
                     }
                   }}
                 />
-              </motion.div>
-            )}
-
-            {activeTab === 'paste' && (
-              <motion.div
-                key="paste"
-                initial={{ opacity: 0, x: -15 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 15 }}
-                className="paste-section"
-              >
-                <div className="form-group">
-                  <label className="form-label">Paste quotation text below</label>
-                  <textarea
-                    className="form-textarea paste-area"
-                    rows={8}
-                    placeholder="Paste the full quotation text here...&#10;&#10;Example:&#10;Item 1: Dell Latitude 5450 - Qty: 5 - Unit Price: BDT 128,000&#10;Item 2: HP LaserJet M404dn - Qty: 3 - Unit Price: BDT 32,000"
-                    value={pastedText}
-                    onChange={(e) => setPastedText(e.target.value)}
-                  />
-                </div>
-                <div className="paste-notice">
-                  <FiInfo size={16} style={{ flexShrink: 0, marginTop: 2 }} />
-                  <span>After pasting, manually fill in the structured fields below for accurate analysis.</span>
-                </div>
               </motion.div>
             )}
 
