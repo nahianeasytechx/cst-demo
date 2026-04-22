@@ -1,19 +1,15 @@
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { HiDocumentReport } from 'react-icons/hi';
 import { MdDashboard } from 'react-icons/md';
-import { FiPlusCircle, FiSun, FiMoon, FiSettings } from 'react-icons/fi';
+import { FiPlusCircle, FiSun, FiMoon } from 'react-icons/fi';
 import { RiFileAddLine } from 'react-icons/ri';
 import { useTheme } from '../hooks/useTheme';
-import SettingsPanel from './SettingsPanel';
 import './Navbar.css';
 
 export default function Navbar() {
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
-  const [showSettings, setShowSettings] = useState(false);
-
   const navLinks = [
     { path: '/', label: 'Dashboard', icon: <MdDashboard size={18} /> },
     { path: '/new', label: 'New Analysis', icon: <RiFileAddLine size={18} /> },
@@ -52,14 +48,6 @@ export default function Navbar() {
           <div className="navbar-actions">
             <button
               className="theme-toggle"
-              onClick={() => setShowSettings(true)}
-              title="Settings"
-            >
-              <FiSettings size={18} />
-            </button>
-
-            <button
-              className="theme-toggle"
               onClick={toggleTheme}
               title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             >
@@ -73,10 +61,6 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      <SettingsPanel
-        isOpen={showSettings}
-        onClose={() => setShowSettings(false)}
-      />
     </>
   );
 }
